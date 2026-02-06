@@ -38,7 +38,7 @@ export async function register(user) {
 }
 
 export async function login(credentials) {
-  console.log("BODY INVIATO:", credentials); // 👈 AGGIUNGI
+  console.log("BODY INVIATO:", credentials); 
 
   const res = await fetch(`${API_URL}/users/login`, {
     method: "POST",
