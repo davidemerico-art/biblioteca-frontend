@@ -1,24 +1,69 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Biblioteca from "./pages/Biblioteca";
+import BookDetail from "./pages/BookDetail";
+import Cart from "./pages/Cart";
 
 function App() {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [carrello, setCarrello] = useState([]);
+
+  const handleLogin = (newToken) => {
+    localStorage.setItem("token", newToken);
+    setToken(newToken);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    setCarrello([]);
+  };
+
+  const PrivateRoute = ({ children }) =>
+    token ? children : <Navigate to="/login" />;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/register" element={<Register />} />
+
+        <Route
+          path="/biblioteca"
+          element={
+            <PrivateRoute>
+              <Biblioteca logout={logout} />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/libro/:id"
+          element={
+            <PrivateRoute>
+              <BookDetail />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/carrello"
+          element={
+            <PrivateRoute>
+              <Cart carrello={carrello} />
+            </PrivateRoute>
+          }
+        />
+
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
