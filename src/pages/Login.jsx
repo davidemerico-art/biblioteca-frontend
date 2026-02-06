@@ -11,13 +11,18 @@ function Login({ onLogin }) {
     e.preventDefault();
 
     try {
+      console.log("LOGIN BODY:", { email, password });
+
       const data = await login({ email, password });
 
-      // ⚠️ FastAPI usa access_token
-      onLogin(data.access_token);
+      console.log("RISPOSTA:", data);
+
+      // salva token (sia access_token che token)
+      onLogin(data.access_token || data.token);
 
       navigate("/biblioteca");
     } catch (err) {
+      console.error(err);
       alert("Login fallito");
     }
   }
@@ -31,6 +36,7 @@ function Login({ onLogin }) {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        required
       />
 
       <input
@@ -38,6 +44,7 @@ function Login({ onLogin }) {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        required
       />
 
       <button type="submit">Login</button>
@@ -46,4 +53,5 @@ function Login({ onLogin }) {
 }
 
 export default Login;
+
 
