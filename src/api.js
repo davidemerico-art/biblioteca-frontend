@@ -46,7 +46,7 @@ export async function login(credentials) {
     body: JSON.stringify(credentials),
   });
 
-  const text = await res.text(); // 👈 leggiamo errore vero
+  const text = await res.text(); 
   console.log("RISPOSTA SERVER:", text);
 
   if (!res.ok) throw new Error(text);
