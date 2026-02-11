@@ -7,25 +7,21 @@ function Book({ libro, aggiungiAlCarrello }) {
         border: "1px solid #ccc",
         padding: "15px",
         margin: "10px",
-        width: "200px"
+        width: "200px",
+        textAlign: "center"
       }}
     >
-      <img
-        src={libro.img}
-        alt={libro.titolo}
-        width="120"
-      />
+      <Link to={`/libro/${libro.id}`}>
+        <img
+          src={libro.img}
+          alt={libro.titolo}
+          width="150"
+          style={{ cursor: "pointer" }}
+        />
+      </Link>
 
       <h3>{libro.titolo}</h3>
-     <p>{libro.autore}</p>
       <p>€{libro.prezzo}</p>
-      <p>{libro.descrizione}</p>
-      <p>{libro.categoria}</p>
-      <p>{libro.fraseCelebre}</p>
-
-      <Link to={`/libro/${libro.id}`}>
-        <button>Dettagli</button>
-      </Link>
 
       <button onClick={() => aggiungiAlCarrello(libro)}>
         Aggiungi al carrello
@@ -35,3 +31,4 @@ function Book({ libro, aggiungiAlCarrello }) {
 }
 
 export default Book;
+

@@ -23,6 +23,38 @@ function App() {
     setCarrello([]);
   };
 
+  const aggiungiAlCarrello = (libro) => {
+    setCarrello((prev) => {
+      const esiste = prev.find((l) => l.id === libro.id);
+
+      if (esiste) {
+        return prev.map((l) =>
+          l.id === libro.id
+            ? { ...l, quantita: l.quantita + 1 }
+            : l
+        );
+      }
+
+      return [...prev, { ...libro, quantita: 1 }];
+    });
+  };
+
+  const rimuoviDalCarrello = (id) => {
+    setCarrello((prev) =>
+      prev
+        .map((l) =>
+          l.id === id
+            ? { ...l, quantita: l.quantita - 1 }
+            : l
+        )
+        .filter((l) => l.quantita > 0)
+    );
+  };
+
+  const svuotaCarrello = () => {
+    setCarrello([]);
+  };
+
   const PrivateRoute = ({ children }) =>
     token ? children : <Navigate to="/login" />;
 
@@ -30,7 +62,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/register" element={<Register />} />
 
@@ -38,7 +69,10 @@ function App() {
           path="/biblioteca"
           element={
             <PrivateRoute>
-              <Biblioteca logout={logout} />
+              <Biblioteca
+                logout={logout}
+                aggiungiAlCarrello={aggiungiAlCarrello}
+              />
             </PrivateRoute>
           }
         />
@@ -56,7 +90,11 @@ function App() {
           path="/carrello"
           element={
             <PrivateRoute>
-              <Cart carrello={carrello} />
+              <Cart
+                carrello={carrello}
+                rimuoviDalCarrello={rimuoviDalCarrello}
+                svuotaCarrello={svuotaCarrello}
+              />
             </PrivateRoute>
           }
         />

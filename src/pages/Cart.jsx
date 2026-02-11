@@ -49,10 +49,9 @@ function Cart({ carrello, rimuoviDalCarrello, svuotaCarrello }) {
       {carrello.map((l) => (
         <div key={l.id} style={{ marginBottom: "10px" }}>
           <strong>{l.titolo}</strong> x {l.quantita} — €{l.prezzo * l.quantita}
+          <button onClick={() => rimuoviDalCarrello(l.id)}>Rimuovi</button>
 
-          <button onClick={() => rimuoviDalCarrello(l.id)}>
-            Rimuovi
-          </button>
+
         </div>
       ))}
 

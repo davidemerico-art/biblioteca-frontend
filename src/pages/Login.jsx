@@ -11,20 +11,20 @@ function Login({ onLogin }) {
     e.preventDefault();
 
     try {
-      console.log("LOGIN BODY:", { email, password });
+  console.log("LOGIN BODY:", { email, password });
 
-      const data = await login({ email, password });
+  const data = await login({ email, password });
 
-      console.log("RISPOSTA:", data);
+  console.log("RISPOSTA:", data);
 
-      // salva token (sia access_token che token)
-      onLogin(data.access_token || data.token);
+  onLogin(data.access_token || data.token);
 
-      navigate("/biblioteca");
-    } catch (err) {
-      console.error(err);
-      alert("Login fallito");
-    }
+  navigate("/biblioteca");
+} catch (err) {
+  console.error(err);
+  alert("Login fallito");
+}
+
   }
 
   return (
@@ -47,8 +47,11 @@ function Login({ onLogin }) {
         required
       />
 
-      <button type="submit">Login</button>
-    </form>
+  
+  <button type="submit">Login</button>
+</form>
+     
+ 
   );
 }
 

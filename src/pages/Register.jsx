@@ -12,16 +12,16 @@ function Register() {
     e.preventDefault();
 
     try {
-      await register({
-        name,       
-        email,
-        password
-      });
-
+      await register({ name, email, password });
       alert("Registrazione completata!");
       navigate("/login");
     } catch (err) {
-      alert("Errore registrazione");
+     
+      if (err.response && err.response.data && err.response.data.detail) {
+        alert(err.response.data.detail);
+      } else {
+        alert("Errore registrazione");
+      }
       console.error(err);
     }
   }
@@ -35,6 +35,7 @@ function Register() {
         placeholder="Nome"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        required
       />
 
       <input
@@ -42,6 +43,7 @@ function Register() {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        required
       />
 
       <input
@@ -49,6 +51,9 @@ function Register() {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        required
+        minLength={6}    
+        maxLength={72}   
       />
 
       <button type="submit">Registrati</button>
