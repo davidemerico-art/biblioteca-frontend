@@ -1,3 +1,4 @@
+// ./App.jsx
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -10,9 +11,11 @@ import Cart from "./pages/Cart";
 import CreaLibro from "./pages/CreaLibro";
 
 function App() {
+  // --- Stato globale ---
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [carrello, setCarrello] = useState([]);
 
+  // --- Funzioni gestione token ---
   const handleLogin = (newToken) => {
     localStorage.setItem("token", newToken);
     setToken(newToken);
@@ -24,7 +27,7 @@ function App() {
     setCarrello([]);
   };
 
-  // AGGIUNGI AL CARRELLO
+  // --- Funzioni gestione carrello ---
   const aggiungiAlCarrello = (libro) => {
     setCarrello((prev) => {
       const esiste = prev.find((l) => l.id === libro.id);
@@ -37,7 +40,6 @@ function App() {
     });
   };
 
-  // RIMUOVI DAL CARRELLO
   const rimuoviDalCarrello = (id) => {
     setCarrello((prev) =>
       prev
@@ -50,17 +52,19 @@ function App() {
 
   const svuotaCarrello = () => setCarrello([]);
 
-  // PRIVATE ROUTE
-  const PrivateRoute = ({ children }) =>
-    token ? children : <Navigate to="/login" />;
+  // --- PrivateRoute ---
+  const PrivateRoute = ({ children }) => (token ? children : <Navigate to="/login" />);
 
+  // --- Render router ---
   return (
     <BrowserRouter>
       <Routes>
+        {/* Pagine pubbliche */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/register" element={<Register />} />
 
+        {/* Pagine private */}
         <Route
           path="/biblioteca"
           element={
@@ -68,7 +72,7 @@ function App() {
               <Biblioteca
                 logout={logout}
                 aggiungiAlCarrello={aggiungiAlCarrello}
-                carrello={carrello}       // opzionale, se vuoi passarlo
+                carrello={carrello} // opzionale se vuoi usarlo
               />
             </PrivateRoute>
           }
@@ -78,10 +82,7 @@ function App() {
           path="/libro/:id"
           element={
             <PrivateRoute>
-              <BookDetail
-                carrello={carrello}
-                setCarrello={setCarrello}
-              />
+              <BookDetail carrello={carrello} setCarrello={setCarrello} />
             </PrivateRoute>
           }
         />
@@ -108,6 +109,7 @@ function App() {
           }
         />
 
+        {/* Route non trovata */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
@@ -115,4 +117,5 @@ function App() {
 }
 
 export default App;
+
 

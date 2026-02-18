@@ -6,6 +6,7 @@ import potter from "../potter.jpg";
 import drago from "../9788804636946.jpg";
 import ferals from "../feralsjpg.jpg";
 
+
 export const libri = [
   { id: 1, titolo: "Percy Jackson e il ladro dei fulmini", autore: "Rick Riordan", prezzo: 24, descrizione: "Percy scopre di essere un semidio e deve salvare l'Olimpo.", img: ladro },
   { id: 2, titolo: "Luce e Tenebre", autore: "Rick Riordan", prezzo: 24, descrizione: "Nico e Will affrontano un viaggio per scoprire se stessi.", img: luce },
@@ -15,3 +16,5 @@ export const libri = [
   { id: 6, titolo: "La ragazza drago", autore: "Licia Troisi", prezzo: 24, descrizione: "Sofia scopre di appartenere al popolo dei draghi.", img: drago },
   { id: 7, titolo: "Il mondo dei Ferals", autore: "Jacob Grey", prezzo: 24, descrizione: "Un ragazzo scopre di essere un Feral.", img: ferals },
 ];
+
+

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { creaLibro } from "../api"; // usiamo la funzione API
+import { creaLibro } from "../api"; 
 import { useNavigate } from "react-router-dom";
 
 function CreaLibro() {
