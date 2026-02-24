@@ -15,6 +15,7 @@ export const libri = [
   { id: 5, titolo: "Harry Potter e la pietra filosofale", autore: "J.K. Rowling", prezzo: 24, descrizione: "Harry scopre di essere un mago.", img: potter },
   { id: 6, titolo: "La ragazza drago", autore: "Licia Troisi", prezzo: 24, descrizione: "Sofia scopre di appartenere al popolo dei draghi.", img: drago },
   { id: 7, titolo: "Il mondo dei Ferals", autore: "Jacob Grey", prezzo: 24, descrizione: "Un ragazzo scopre di essere un Feral.", img: ferals },
+  {id : 8, titolo: "Il Signore degli Anelli", autore: "J.R.R. Tolkien", prezzo: 24, descrizione: "Un'epica avventura nella Terra di Mezzo.", img: "https://images-na.ssl-images-amazon.com/images/I/51EstVXM1UL._SX331_BO1,204,203,200_.jpg"},
 ];
 
 
